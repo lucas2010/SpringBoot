@@ -9,7 +9,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'ls'
-        sh 'mvnw package'
+        sh './mvnw package'
       }
     }
   }
