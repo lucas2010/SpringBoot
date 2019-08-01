@@ -1,9 +1,5 @@
 pipeline {
   agent none
-  environment {
-    registry = "lucas2010/springboot-demo"
-    registryCredential = 'dockerhub_pass'
-  }
   stages {
     stage('build') {
       agent {
@@ -21,9 +17,19 @@ pipeline {
       steps {
         script {
             def image = docker.image("lucas2010/springboot-demo:0.0.1-SNAPSHOT")
-            docker.withRegistry( '', registryCredential ) { image.push() }
+            image.push()
         }
       }
     }
   }
+  post {
+    success {
+      // One or more steps need to be included within each condition's block.
+      steps {
+        sh 'git tag $(date +"%s")'
+
+      }
+    }
+  }
+
 }
