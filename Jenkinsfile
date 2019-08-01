@@ -17,9 +17,19 @@ pipeline {
       steps {
         script {
             def image = docker.image("lucas2010/springboot-demo:0.0.1-SNAPSHOT")
-            image.tag("test01")
+            image.push()
         }
       }
     }
   }
+  post {
+    success {
+      // One or more steps need to be included within each condition's block.
+      steps {
+        sh 'git tag $(date +"%s")'
+
+      }
+    }
+  }
+
 }
