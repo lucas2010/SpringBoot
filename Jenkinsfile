@@ -15,7 +15,7 @@ pipeline {
     stage('repo') {
       steps {
         script {
-            def image = docker.image("lucas2010/springboot-demo")
+            def image = docker.image("lucas2010/springboot-demo:0.0.1-SNAPSHOT")
             image.tag("test01")
         }
       }
